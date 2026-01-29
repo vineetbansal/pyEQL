@@ -62,6 +62,9 @@ jobs:
       with:
         fetch-depth: 0
     - uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ needs.detect_tag.outputs.tag }}
+        generate_release_notes: true
 
   build_wheels:
     name: Build wheel on ${{ matrix.os }} for ${{ matrix.cibw_archs }}
