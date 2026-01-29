@@ -48,6 +48,15 @@ jobs:
         path: wheelhouse/*.tar.gz
         if-no-files-found: error
 
+  create_gh_release:
+    name: Create Github Release
+    needs: [detect_tag, build_sdist]
+    if: needs.detect_tag.outputs.tag != ''
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: softprops/action-gh-release@v2
+
   build_wheels:
     name: Build wheel on ${{ matrix.os }} for ${{ matrix.cibw_archs }}
     needs: [detect_tag, build_sdist]
